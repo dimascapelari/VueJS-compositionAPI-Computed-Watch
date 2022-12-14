@@ -1,4 +1,7 @@
 <template>
+  <AppHook v-if="showAppHook" />
+  <button @click="showAppHook = !showAppHook">Toggle</button>
+  <hr />
   <h5>User</h5>
 
   {{ user.first_name }}
@@ -12,8 +15,12 @@
 
 <script>
 import { ref, computed, watch } from "vue";
+import AppHook from "./components/AppHook.vue";
 
 export default {
+  components: {
+    AppHook,
+  },
   name: "App",
 
   setup() {
@@ -21,6 +28,8 @@ export default {
       first_name: "Dimas",
       last_name: "Capelari",
     });
+
+    const showAppHook = ref(true);
 
     // Computed para objetos computados
     const fullName = computed(() => {
@@ -41,6 +50,7 @@ export default {
     return {
       user,
       fullName,
+      showAppHook,
     };
   },
 };
