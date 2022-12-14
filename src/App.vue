@@ -1,17 +1,49 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <h5>User</h5>
+
+  {{ user.first_name }}
+  {{ user.last_name }}
+  <br /><br />
+  <h5>Full name</h5>
+  {{ fullName }}
+
+  <button @click="user.first_name = 'Maria Luiza'">Atualizar</button>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import { ref, computed, watch } from "vue";
 
 export default {
-  name: 'App',
-  components: {
-    HelloWorld
-  }
-}
+  name: "App",
+
+  setup() {
+    const user = ref({
+      first_name: "Dimas",
+      last_name: "Capelari",
+    });
+
+    // Computed para objetos computados
+    const fullName = computed(() => {
+      return `${user.value.first_name} ${user.value.last_name}`;
+    });
+
+    // Watch para observar e executar alguma coisa quando alterado
+    watch(
+      user,
+      () => {
+        console.log("Lógica cabulosa");
+      },
+      {
+        deep: true,
+      }
+    );
+
+    return {
+      user,
+      fullName,
+    };
+  },
+};
 </script>
 
 <style>
@@ -19,7 +51,6 @@ export default {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
   color: #2c3e50;
   margin-top: 60px;
 }
